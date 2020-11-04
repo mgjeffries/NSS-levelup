@@ -1,23 +1,51 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 
-export const GameContext = React.createContext()
+export const GameContext = React.createContext();
 
 export const GameProvider = (props) => {
-    const [ games, setGames ] = useState([])
+  const [games, setGames] = useState([]);
+  const [gameTypes, setTypes] = useState([]);
 
-    const getGames = () => {
-        return fetch("http://localhost:8000/games", {
-            headers:{
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
-            }
-        })
-            .then(response => response.json())
-            .then(setGames)
-    }
+  const getGames = () => {
+    return fetch("http://localhost:8000/games", {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("lu_token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then(setGames);
+  };
 
-    return (
-        <GameContext.Provider value={{ games, getGames }} >
-            { props.children }
-        </GameContext.Provider>
-    )
-}
+  const createGame = (game) => {
+    return fetch("http://localhost:8000/games", {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${localStorage.getItem("lu_token")}`,
+      },
+      body: JSON.stringify(game),
+    })
+      .then((res) => res.json())
+      .then((resJson) => {
+        getGames();
+        return resJson;
+      });
+  };
+
+  const getGameTypes = () => {
+    return fetch("http://localhost:8000/gametype", {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("lu_token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then(setTypes);
+  };
+
+  return (
+    <GameContext.Provider
+      value={{ games, getGames, createGame, getGameTypes, setTypes }}
+    >
+      {props.children}
+    </GameContext.Provider>
+  );
+};
