@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { GameContext } from "../game/GameProvider";
+import { EventContext } from "./EventProvider";
 
 export const EventForm = (props) => {
   const { games, getGames } = useContext(GameContext);
+  const { createEvent } = useContext(EventContext);
   const [currentEvent, setEvent] = useState({
     game_id: 0,
     day: "",
@@ -85,8 +87,13 @@ export const EventForm = (props) => {
         type="submit"
         onClick={(evt) => {
           evt.preventDefault();
-
-          // Create the event
+          const newEvent = {
+            gameId: parseInt(currentEvent.game_id),
+            day: currentEvent.day,
+            time: currentEvent.time,
+            description: currentEvent.description,
+          };
+          createEvent(newEvent);
         }}
         className="btn btn-primary"
       >
