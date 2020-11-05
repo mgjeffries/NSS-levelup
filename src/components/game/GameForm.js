@@ -10,8 +10,8 @@ export const GameForm = (props) => {
         provide some default values.
     */
   const [currentGame, setCurrentGame] = useState({
-    skill_level: 1,
-    number_of_players: 0,
+    skillLevel: 1,
+    numberOfPlayers: 0,
     title: "",
     maker: "",
     gameTypeId: 0,
@@ -32,6 +32,7 @@ export const GameForm = (props) => {
   const handleControlledInputChange = (event) => {
     const newGameState = Object.assign({}, currentGame);
     newGameState[event.target.name] = event.target.value;
+    console.log(newGameState);
     setCurrentGame(newGameState);
   };
 
@@ -54,12 +55,12 @@ export const GameForm = (props) => {
       </fieldset>
       <fieldset>
         <div className="form-group">
-          <label htmlFor="gametype">Game Type: </label>
+          <label htmlFor="gameTypeId">Game Type: </label>
           <select
-            name="gametype"
+            name="gameTypeId"
             required
             className="form-control"
-            value={currentGame.gametype}
+            value={currentGame.gameTypeId}
             onChange={handleControlledInputChange}
           >
             {gameTypes.map((gameType) => {
@@ -88,32 +89,32 @@ export const GameForm = (props) => {
       </fieldset>
       <fieldset>
         <div className="form-group">
-          <label htmlFor="number_of_players">
-            Number of Players: {currentGame.number_of_players}{" "}
+          <label htmlFor="numberOfPlayers">
+            Number of Players: {currentGame.numberOfPlayers}{" "}
           </label>
           <input
             type="range"
-            name="number_of_players"
+            name="numberOfPlayers"
             min={0}
             max={20}
             className="form-control"
-            value={currentGame.number_of_players}
+            value={currentGame.numberOfPlayers}
             onChange={handleControlledInputChange}
           />
         </div>
       </fieldset>
       <fieldset>
         <div className="form-group">
-          <label htmlFor="skill_level">
-            Skill Level: {currentGame.skill_level}{" "}
+          <label htmlFor="skillLevel">
+            Skill Level: {currentGame.skillLevel}{" "}
           </label>
           <input
             type="range"
-            name="skill_level"
+            name="skillLevel"
             min={0}
             max={5}
             className="form-control"
-            value={currentGame.skill_level}
+            value={currentGame.skillLevel}
             onChange={handleControlledInputChange}
           />
         </div>
