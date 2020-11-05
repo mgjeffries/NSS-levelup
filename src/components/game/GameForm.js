@@ -32,6 +32,7 @@ export const GameForm = (props) => {
   const handleControlledInputChange = (event) => {
     const newGameState = Object.assign({}, currentGame);
     newGameState[event.target.name] = event.target.value;
+    console.log(newGameState);
     setCurrentGame(newGameState);
   };
 
@@ -54,12 +55,12 @@ export const GameForm = (props) => {
       </fieldset>
       <fieldset>
         <div className="form-group">
-          <label htmlFor="gametype">Game Type: </label>
+          <label htmlFor="gameTypeId">Game Type: </label>
           <select
-            name="gametype"
+            name="gameTypeId"
             required
             className="form-control"
-            value={currentGame.gametype}
+            value={currentGame.gameTypeId}
             onChange={handleControlledInputChange}
           >
             {gameTypes.map((gameType) => {
