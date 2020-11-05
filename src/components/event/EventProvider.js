@@ -1,23 +1,38 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 
-export const EventContext = React.createContext()
+export const EventContext = React.createContext();
 
 export const EventProvider = (props) => {
-    const [ events, setEvents ] = useState([])
+  const [events, setEvents] = useState([]);
 
-    const getEvents = () => {
-        return fetch("http://localhost:8000/events", {
-            headers:{
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
-            }
-        })
-            .then(response => response.json())
-            .then(setEvents)
-    }
+  const getEvents = () => {
+    return fetch("http://localhost:8000/events", {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("lu_token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then(setEvents);
+  };
 
-    return (
-        <EventContext.Provider value={{ events, getEvents }} >
-            { props.children }
-        </EventContext.Provider>
-    )
-}
+  const createEvent = (event) => {
+    return fetch("http://localhost:8000/events", {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${localStorage.getItem("lu_token")}`,
+      },
+      body: JSON.stringify(event),
+    })
+      .then((res) => res.json())
+      .then((resJson) => {
+        getEvents();
+        return resJson;
+      });
+  };
+
+  return (
+    <EventContext.Provider value={{ events, getEvents, createEvent }}>
+      {props.children}
+    </EventContext.Provider>
+  );
+};
