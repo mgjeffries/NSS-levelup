@@ -6,16 +6,9 @@ export const EventForm = (props) => {
   const [currentEvent, setEvent] = useState({
     game_id: 0,
     day: "",
+    time: "12:00:00",
+    description: "",
   });
-  //   {
-  //   description: "Welcome To at lunch",
-
-  //   gamer: {
-  //     user: { first_name: "Steve", last_name: "Brownlee", email: "me@me.com" },
-  //   },
-  //   time: "12:00:00",
-  //   url: "http://localhost:8000/events/1",
-  // }
 
   useEffect(() => {
     getGames();
@@ -57,6 +50,30 @@ export const EventForm = (props) => {
             name="day"
             className="form-control"
             value={currentEvent.day}
+            onChange={handleControlledInputChange}
+          ></input>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="time">Time of Event: </label>
+          <input
+            type="time"
+            name="time"
+            className="form-control"
+            value={currentEvent.time}
+            onChange={handleControlledInputChange}
+          ></input>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="description">Description of Event: </label>
+          <input
+            type="text"
+            name="description"
+            className="form-control"
+            value={currentEvent.description}
             onChange={handleControlledInputChange}
           ></input>
         </div>
