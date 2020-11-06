@@ -37,9 +37,7 @@ export const EventProvider = (props) => {
       headers: {
         Authorization: `Token ${localStorage.getItem("lu_token")}`,
       },
-    })
-      .then((response) => response.json())
-      .then(getEvents);
+    }).then(getEvents);
   };
 
   const joinEvent = (eventId) => {
